@@ -1,16 +1,26 @@
 
 import pandas as pd
+import os
+import fnmatch
 
-infile = "wse_stocks/1at.txt"
-outfile = "wse_stocks/1at.csv"
+dir_name = "wse_stocks/"
 
-delete_list = ["<", ">"]
-with open(infile) as fin, open(outfile, "w+") as fout:
-    for line in fin:
-        for word in delete_list:
-            line = line.replace(word, "")
-        fout.write(line)
+txt_files = fnmatch.filter(os.listdir(dir_name), '*.txt')
 
-data = pd.read_csv(outfile)
-print(data.columns)
-print(data.TICKER)
+for i in range(len(txt_files)):
+    txt_files[i] = dir_name + txt_files[i]
+
+csv_files = txt_files.copy()
+
+for i in range(len(txt_files)):
+    csv_files[i] = txt_files[i].replace('.txt', '.csv')
+    delete_list = ["<", ">"]
+    with open(txt_files[i]) as fin, open(csv_files[i], "w+") as fout:
+        for line in fin:
+            for word in delete_list:
+                line = line.replace(word, "")
+            fout.write(line)
+
+#data = pd.read_csv(csv_files[0])
+#print(data.columns)
+#print(data.TICKER)
