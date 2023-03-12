@@ -1,13 +1,16 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import csv
-rows = []
-with open("wse stocks/1at.txt", 'r') as file:
-    csvreader = csv.reader(file)
-    header = next(csvreader)
-    for row in csvreader:
-        rows.append(row)
-print(header)
-print(rows)
+import pandas as pd
+
+infile = "wse_stocks/1at.txt"
+outfile = "wse_stocks/1at.csv"
+
+delete_list = ["<", ">"]
+with open(infile) as fin, open(outfile, "w+") as fout:
+    for line in fin:
+        for word in delete_list:
+            line = line.replace(word, "")
+        fout.write(line)
+
+data = pd.read_csv(outfile)
+print(data.columns)
+print(data.TICKER)
