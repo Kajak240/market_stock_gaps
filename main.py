@@ -32,11 +32,11 @@ gaps["GapClosureDate"] = ""
 gaps["DaysToClose"] = np.nan
 
 for i in range(len(gaps)):
-    for j in range(gaps['IndexOfDate'].values[i] + 1, len(data.index) - (gaps['IndexOfDate'].values[i] + 1)):  # petla przez cala csvke
+    for j in range(gaps['IndexOfDate'].values[i] + 1, len(data.index)):  # petla przez cala csvke
         if data['HIGH'].values[j] >= gaps['GapHigh'].values[i]: #domkniecie luki w ciagu jednego dnia
             gaps['GapClosureDate'].values[i] = data['DATE'].values[j]
             gaps['DaysToClose'].values[i] = int(j - gaps['IndexOfDate'].values[i])
-            break
+            break;
         elif data['HIGH'].values[j] >= gaps['GapLow'].values[i] and gaps['GapTouchDate'].values[i] == '':
             gaps['GapTouchDate'].values[i] = data['DATE'].values[j]
         elif data['LOW'].values[j] <= gaps['MinPrice'].values[i]:
