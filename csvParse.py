@@ -29,8 +29,8 @@ def csvParser():
             with open(txt_files[i]) as fin, open(csv_files[i], "w+") as fout: # petla przechodzi przez wszystkie pliki txt i tworzy pliki .csv
                 for line in fin:
                     for word in delete_list:
-                        line = line.replace(word, "") #usuwa znaki do usuniecia z kazdego slowa w linijce w pliku
-                    fout.write(line) #zapisuje przetwarzana linijke do pliku .csv
+                        line = line.replace(word, "") # usuwa znaki do usuniecia z kazdego slowa w linijce w pliku
+                    fout.write(line) # zapisuje przetwarzana linijke do pliku .csv
     else:
         for i in range(len(csv_files)):
             csv_files[i] = csv_dir_name + csv_files[i]  # do kazdego elementu listy z nazwa pliku dodaje sciezke wzgledna (wse_stocks/nazwa_pliku.txt)
