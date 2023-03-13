@@ -36,6 +36,7 @@ for i in range(len(gaps)):
         if data['HIGH'].values[j] >= gaps['GapHigh'].values[i]: #domkniecie luki w ciagu jednego dnia
             gaps['GapClosureDate'].values[i] = data['DATE'].values[j]
             gaps['DaysToClose'].values[i] = int(j - gaps['IndexOfDate'].values[i])
+            gaps['GapTouchDate'].values[i] = data['DATE'].values[j]
             break;
         elif data['HIGH'].values[j] >= gaps['GapLow'].values[i] and gaps['GapTouchDate'].values[i] == '':
             gaps['GapTouchDate'].values[i] = data['DATE'].values[j]
