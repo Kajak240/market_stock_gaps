@@ -25,18 +25,16 @@ for i in range(len(txt_files)):
                 line = line.replace(word, "") #usuwa znaki do usuniecia z kazdego slowa w linijce w pliku
             fout.write(line) #zapisuje przetwarzana linijke do pliku .csv
 
-
-
 # luki w trendzie spadkowym (zwiastujace przyszly wzrost)
 data = pd.read_csv(csv_files[0])
 
 gaps = pd.DataFrame(columns=['DATE','GAPHIGH','GAPLOW'])
 
-
 for i in range (1, len(data.index)):
     gap_high = data['LOW'].values[i-1]
     gap_low = data['HIGH'].values[i]
     if gap_low < gap_high:
-        gaps.append([data['DATE'].values[i]], gap_high, gap_low)
+        new_gap = [str(data['DATE'].values[i]), gap_high, gap_low]
+        gaps.loc[len(gaps)] = new_gap
 
 print(gaps)
