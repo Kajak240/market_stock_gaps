@@ -37,10 +37,13 @@ for i in range(len(gaps)):
             gaps['GapClosureDate'].values[i] = data['DATE'].values[j]
             gaps['DaysToClose'].values[i] = int(j - gaps['IndexOfDate'].values[i])
             gaps['GapTouchDate'].values[i] = data['DATE'].values[j]
-            break;
+            break
         elif data['HIGH'].values[j] >= gaps['GapLow'].values[i] and gaps['GapTouchDate'].values[i] == '':
             gaps['GapTouchDate'].values[i] = data['DATE'].values[j]
         elif data['LOW'].values[j] <= gaps['MinPrice'].values[i]:
             gaps['MinPrice'].values[i] = data['LOW'].values[j]
 
-print(gaps)
+#print(gaps)
+nullList = ['',None]
+filtered_gaps = gaps[gaps['GapTouchDate'].isin(nullList)]
+filtered_gaps.to_csv(csv_files[0][:-4] + '_gaps.csv')
