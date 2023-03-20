@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\wse_stocks\csv\08n_gaps.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

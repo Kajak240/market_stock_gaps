@@ -2,7 +2,7 @@ import os
 import fnmatch
 
 def csvParser():
-
+    #TODO: gdyby utworzyc plik przechowujacy najwyzsza dotychczas przeladowana date mozna by ograniczyc ilosc przeladowywan plikow (a moze i zrobić incrementa?)
     txt_dir_name = "wse_stocks/"
 
     csv_dir_name = txt_dir_name + "csv/"
@@ -25,7 +25,7 @@ def csvParser():
 
             txt_files[i] = txt_dir_name + txt_files[i] # do kazdego elementu listy z nazwa pliku dodaje sciezke wzgledna (wse_stocks/nazwa_pliku.txt)
             csv_files[i] = csv_dir_name + csv_files[i] # do kazdego elementu listy z nazwa pliku dodaje sciezke wzgledna (wse_stocks/nazwa_pliku.txt)
-
+            # do cipy to jest, mozna by tylko z jednej linijki usuwac te znaki, i tylko na niej wywolac funkcje replace
             with open(txt_files[i]) as fin, open(csv_files[i], "w+") as fout: # petla przechodzi przez wszystkie pliki txt i tworzy pliki .csv
                 for line in fin:
                     for word in delete_list:
