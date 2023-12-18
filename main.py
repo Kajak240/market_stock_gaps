@@ -26,8 +26,9 @@ threadnum = len(csv_files) # zlicz ile jest plikow i zapisz ilosc pod katem wiel
 # for i in range(threadnum) # chyba najlepsza opcja, wtedy wiemy ile utworzyć watkow? jakby tego len
 # data = pd.read_csv(csv_files[0]) # zapisanie calej csv w dataframe - wersja jednoplikowa
 for k in range(20):
-    data = pd.read_csv(csv_files[k])
-
+    print('ok')
+    data = pd.read_csv("wse_stocks/csv/" + csv_files[k])
+    print('nok')
     gaps = pd.DataFrame(columns=['IndexOfDate', 'Date', 'GapHigh', 'GapLow', 'MinPrice']) # robocza struktura dataframe'u
 
     for i in range(1, len(data.index)): # petla przez cala csvke

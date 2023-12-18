@@ -1,40 +1,48 @@
 import os
 import fnmatch
 
-# usage poniższej funkcji:  funkcja przynajmniej póki co nie przyjmuje argumentów, ale nieglupim by było dodać jako parametr chociazby nazwe pliku, jezeli pusta to wszystkie?
-# tak czy inaczej,
+def csvParser(txt_dir_name="wse_stocks/", csv_dir_name=None):
+    """
+    Funkcja csvParser zajmuje się przetwarzaniem plików tekstowych (.txt) zawierających dane giełdowe.
+    Usuwa znaki '<' i '>' z pierwszej linii każdego pliku tekstowego, a następnie zapisuje
+    zmodyfikowaną pierwszą linię i pozostałe linie do pliku CSV (.csv). Funkcja zwraca listę
+    nazw wygenerowanych plików CSV.
 
-def csvParser():
-    #TODO: gdyby utworzyc plik przechowujacy najwyzsza dotychczas przeladowana date mozna by ograniczyc ilosc przeladowywan plikow (a moze i zrobić incrementa?)
-    txt_dir_name = "wse_stocks/"
+    Args:
+        txt_dir_name (str, optional): Ścieżka do katalogu zawierającego pliki tekstowe (.txt). Domyślnie "wse_stocks/".
+        csv_dir_name (str, optional): Ścieżka do katalogu, gdzie mają być zapisane pliki CSV (.csv).
+                                     Domyślnie tworzony jest podkatalog "csv/" w katalogu txt_dir_name, domyślnie "wse_stocks/" .
 
-    csv_dir_name = txt_dir_name + "csv/"
+    Returns:
+        List[str]: Lista nazw plików CSV utworzonych przez funkcję.
+    """
+    # Utwórz katalog wyjściowy, jeśli nie istnieje
+    if csv_dir_name is None:
+        csv_dir_name = os.path.join(txt_dir_name, "csv/")
 
     if not os.path.exists(csv_dir_name):
         os.makedirs(csv_dir_name)
 
-    txt_files = fnmatch.filter(os.listdir(txt_dir_name), '*.txt') # tworzy zmienna z nazwami wszystkich plikow .txt
-    csv_files = fnmatch.filter(os.listdir(csv_dir_name), '*.csv') # tworzy zmienna z nazwami wszystkich plikow .csv
+    # Zbierz listę plików tekstowych (.txt) wejściowych
+    txt_files = fnmatch.filter(os.listdir(txt_dir_name), '*.txt')
 
-    if len(csv_files) != len(txt_files):
+    # Generuj listę nazw plików CSV na podstawie plików tekstowych
+    csv_files = [file.replace('.txt', '.csv') for file in txt_files]
 
-        csv_files = txt_files.copy()
+    # Iteruj po parach plików tekstowych i plików CSV
+    for txt_file, csv_file in zip(txt_files, csv_files):
+        # Utwórz pełne ścieżki plików wejściowego i wyjściowego
+        txt_file_path = os.path.join(txt_dir_name, txt_file)
+        csv_file_path = os.path.join(csv_dir_name, csv_file)
 
-        delete_list = ["<", ">"]  # znaki do usuniecia z zawartosci pliku
+        # Otwórz plik tekstowy w trybie tylko do odczytu i wczytaj pierwszą linię
+        with open(txt_file_path, 'r') as fin:
+            first_line = fin.readline().replace('<', '').replace('>', '')
 
-        for i in range(len(txt_files)):
+        # Otwórz plik CSV w trybie do zapisu i zapisz zmodyfikowaną pierwszą linię oraz pozostałe linie
+        with open(csv_file_path, 'w+') as fout:
+            fout.write(first_line)
+            fout.writelines(open(txt_file_path).readlines()[1:])
 
-            csv_files[i] = txt_files[i].replace('.txt', '.csv')  # modyfikuje nazwe pliku w kopii z .txt na .csv
-
-            txt_files[i] = txt_dir_name + txt_files[i] # do kazdego elementu listy z nazwa pliku dodaje sciezke wzgledna (wse_stocks/nazwa_pliku.txt)
-            csv_files[i] = csv_dir_name + csv_files[i] # do kazdego elementu listy z nazwa pliku dodaje sciezke wzgledna (wse_stocks/nazwa_pliku.txt)
-            # do cipy to jest, mozna by tylko z jednej linijki usuwac te znaki, i tylko na niej wywolac funkcje replace
-            with open(txt_files[i]) as fin, open(csv_files[i], "w+") as fout: # petla przechodzi przez wszystkie pliki txt i tworzy pliki .csv
-                for line in fin:
-                    for word in delete_list:
-                        line = line.replace(word, "") # usuwa znaki do usuniecia z kazdego slowa w linijce w pliku
-                    fout.write(line) # zapisuje przetwarzana linijke do pliku .csv
-    else:
-        for i in range(len(csv_files)):
-            csv_files[i] = csv_dir_name + csv_files[i]  # do kazdego elementu listy z nazwa pliku dodaje sciezke wzgledna (wse_stocks/nazwa_pliku.txt)
+    # Zwróć listę nazw plików CSV
     return csv_files
