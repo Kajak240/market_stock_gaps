@@ -31,6 +31,8 @@ Wymaganym jest wypakowanie katalogu data/daily/pl/wse_stocks do projektu.
     pip install -r requirements.txt
     ```
 
+4. Pobierz https://chromedriver.storage.googleapis.com/index.html?path=114.0.5735.90/ i wrzuć do projektu, np do katalogu chromedriver
+
 ## Użycie
 
 1. Upewnij się, że pliki tekstowe z danymi giełdowymi znajdują się w katalogu `wse_stocks/`. Jeżeli nie ma, pobierz plik PL ASCII dzienny ze stooq.
