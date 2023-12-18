@@ -12,7 +12,7 @@ import calendar
 #todo: reszta to pozostale
 
 csv_files = csvParser()
-
+"""
 ticker_names = pd.read_excel('Book.xlsx')
 
 pd.options.display.max_rows = 9999 # pozwala na wyswietlanie duzej ilosci wartosci w outpucie (przy pracy na dataframe'ach)
@@ -61,3 +61,4 @@ for k in range(20):
     filtered_gaps = gaps[gaps['GapTouchDate'].isin(nullList)]
     #filtered_gaps.to_csv(csv_files[0][:-4] + '_gaps.csv')
     filtered_gaps.to_csv('gaps/' + csv_files[k][:-4] + '_gaps.csv')
+"""
