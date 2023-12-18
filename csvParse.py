@@ -1,6 +1,9 @@
 import os
 import fnmatch
 
+# usage poniższej funkcji:  funkcja przynajmniej póki co nie przyjmuje argumentów, ale nieglupim by było dodać jako parametr chociazby nazwe pliku, jezeli pusta to wszystkie?
+# tak czy inaczej,
+
 def csvParser():
     #TODO: gdyby utworzyc plik przechowujacy najwyzsza dotychczas przeladowana date mozna by ograniczyc ilosc przeladowywan plikow (a moze i zrobić incrementa?)
     txt_dir_name = "wse_stocks/"
