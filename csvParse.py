@@ -14,6 +14,11 @@ def process_file(txt_file, txt_dir_name, csv_dir_name):
     with open(txt_file_path, 'r') as fin:
         first_line = fin.readline().replace('<', '').replace('>', '')
 
+    # Sprawdź, czy plik tekstowy nie jest pusty
+    if not first_line.strip():
+        print(f"Skipping empty file: {txt_file}")
+        return None
+
     # Otwórz plik CSV w trybie do zapisu i zapisz zmodyfikowaną pierwszą linię oraz pozostałe linie
     with open(csv_file_path, 'w+') as fout:
         fout.write(first_line)
@@ -22,7 +27,7 @@ def process_file(txt_file, txt_dir_name, csv_dir_name):
     return csv_file
 
 
-def csvParser(txt_dir_name="wse_stocks/", csv_dir_name=None, num_threads=8):
+def csvParser(txt_dir_name="wse_stocks/", csv_dir_name=None, num_threads=os.cpu_count()):
     """
     Funkcja csvParser zajmuje się przetwarzaniem plików tekstowych (.txt) zawierających dane giełdowe.
     Usuwa znaki '<' i '>' z pierwszej linii każdego pliku tekstowego, a następnie zapisuje
@@ -33,7 +38,7 @@ def csvParser(txt_dir_name="wse_stocks/", csv_dir_name=None, num_threads=8):
         txt_dir_name (str, optional): Ścieżka do katalogu zawierającego pliki tekstowe (.txt). Domyślnie "wse_stocks/".
         csv_dir_name (str, optional): Ścieżka do katalogu, gdzie mają być zapisane pliki CSV (.csv).
                                      Domyślnie tworzony jest podkatalog "csv/" w katalogu txt_dir_name.
-        num_threads (int, optional): Liczba wątków użytych do przetwarzania plików. Domyślnie 8.
+        num_threads (int, optional): Liczba wątków użytych do przetwarzania plików. Domyślnie liczba watkow dostepna w PC.
 
     Returns:
         List[str]: Lista nazw plików CSV utworzonych przez funkcję.
@@ -51,5 +56,8 @@ def csvParser(txt_dir_name="wse_stocks/", csv_dir_name=None, num_threads=8):
     with ThreadPoolExecutor(max_workers=num_threads) as executor:
         # Uruchom funkcję process_file dla każdego pliku tekstowego
         results = list(executor.map(process_file, txt_files, [txt_dir_name] * len(txt_files), [csv_dir_name] * len(txt_files)))
+
+    # Usuń None z listy wyników (pliki, które były puste)
+    results = [result for result in results if result is not None]
 
     return results
