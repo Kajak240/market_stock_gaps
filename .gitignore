@@ -131,3 +131,7 @@ dmypy.json
 # main data of program
 wse_stocks/
 gaps/
+
+# chrome puppeteer engine
+
+chromedriver/
