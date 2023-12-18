@@ -32,7 +32,7 @@ Projekt obejmuje aplikację napisaną w języku Python, która wspomaga analizę
 
 ## Użycie
 
-1. Upewnij się, że pliki tekstowe z danymi giełdowymi znajdują się w katalogu `wse_stocks/`. Jeżeli nie ma, pobierz plik PL ASCII ze stooq.
+1. Upewnij się, że pliki tekstowe z danymi giełdowymi znajdują się w katalogu `wse_stocks/`. Jeżeli nie ma, pobierz plik PL ASCII dzienny ze stooq.
 2. Uruchom aplikację za pomocą pliku `main.py`:
 
     ```bash
