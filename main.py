@@ -12,6 +12,9 @@ import calendar
 #todo: reszta to pozostale
 
 csv_files = csvParser()
+
+ticker_names = pd.read_excel('Book.xlsx')
+
 pd.options.display.max_rows = 9999 # pozwala na wyswietlanie duzej ilosci wartosci w outpucie (przy pracy na dataframe'ach)
 pd.set_option('display.width', 400)
 pd.set_option('display.max_columns', 10)
