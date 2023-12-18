@@ -3,6 +3,7 @@
 ## Opis
 
 Projekt obejmuje aplikację napisaną w języku Python, która wspomaga analizę techniczną wycen spółek notowanych na polskiej giełdzie. Aplikacja korzysta z danych dostępnych w plikach dziennej notacji ASCII ze strony [Stooq](https://stooq.pl/db/h/).
+Wymaganym jest wypakowanie katalogu data/daily/pl/wse_stocks do projektu.
 
 ## Struktura Katalogów
 
