@@ -3,7 +3,7 @@
 import os
 import pandas as pd
 import numpy as np
-from csvParse import csvParser
+
 import multiprocessing
 
 def find_price_gaps(data):
@@ -59,7 +59,7 @@ def process_gaps(gaps, data):
 def process_file_and_save(csv_file):
     try:
 
-        data = pd.read_csv("wse_stocks/csv/" + csv_file)
+        data = pd.read_csv("wse_stocks_csv/csv/" + csv_file)
 
     except pd.errors.EmptyDataError:
         print(f"Empty file: {csv_file}")

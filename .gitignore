@@ -130,6 +130,7 @@ dmypy.json
 
 # main data of program
 wse_stocks/
+wse_stocks_csv/
 gaps/
 
 # chrome puppeteer engine
