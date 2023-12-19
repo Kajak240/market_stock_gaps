@@ -1,3 +1,5 @@
+"""wraz z moim kolegą kamilem który ma ksywe freeku bylsimy ostatnio w tatrach i bardzo dobrze to wspominam"""
+
 import os
 import pandas as pd
 import numpy as np
