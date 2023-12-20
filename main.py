@@ -3,7 +3,7 @@
 import os
 import pandas as pd
 import numpy as np
-
+from new_scraper import generate_csv_filenames
 import multiprocessing
 
 def find_price_gaps(data):
@@ -59,7 +59,7 @@ def process_gaps(gaps, data):
 def process_file_and_save(csv_file):
     try:
 
-        data = pd.read_csv("wse_stocks_csv/csv/" + csv_file)
+        data = pd.read_csv("wse_stocks_csv/" + csv_file)
 
     except pd.errors.EmptyDataError:
         print(f"Empty file: {csv_file}")
@@ -93,7 +93,7 @@ def process_file_and_save(csv_file):
 
 if __name__ == "__main__":
     # Wczytaj dane giełdowe z plików CSV
-    csv_files = csvParser()
+    csv_files = generate_csv_filenames()
     threadnum = os.cpu_count()
 
     # Utwórz pulę procesów i zmapuj funkcję process_file_and_save na listę plików
